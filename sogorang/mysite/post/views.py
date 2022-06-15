@@ -4,11 +4,11 @@ from home.models import *
 
 def deal_com(request,post_id):
   if request.method == 'POST' :
-    post = Post.objects.get(id=post_id)
+    post = Post.objects.get(postPIN=post_id)
     post.dealStatus=2
     post.buyer=request.user.username
     post.save()
-    return redirect('/chat/'+str(post.id)+'/delete')
+    return redirect('/chat/'+str(post.postPIN)+'/delete')
 
 
 
@@ -99,13 +99,13 @@ def post_detail(request, post_id):
 #포스트 수정
 def post_edit(request,post_id):
   if request.method=='GET':
-    data = Data.objects.all()
-    post = Post.objects.get(id=post_id)
+    data = Post.objects.get(postPIN=post_id)
+    post = Data.objects.all()
     content={'post':post, 'data':data}
     return render(request, 'post/editPost.html',content)
 
   if request.method=='POST':
-    post= Post.objects.get(id=post_id)
+    post= Post.objects.get(postPIN=post_id)
     if request.FILES['productImage'] is not None :
       post.image = request.FILES['productImage']
     post.category = request.POST['category']
@@ -121,7 +121,7 @@ def post_edit(request,post_id):
     post.dealAddress=request.POST['sel_address']
     post.productPIN=request.POST['productPIN']
     post.save()
-    return redirect('/post/'+str(post.id))
+    return redirect('/post/'+str(post.postPIN))
 
 def post_delete(request, post_id):
   data = Post.objects.get(postPIN=post_id)

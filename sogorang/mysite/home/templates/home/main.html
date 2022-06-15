@@ -15,6 +15,13 @@
 		<h2 style="color:black;">사용자 맞춤 추천 판매글</h2>
 		<hr>
 		<div style=" cursor: pointer;" onclick="location.href='{% url 'post_detail' recommend.postPIN %}';">
+			{% if recommend.dealStatus == 1 %}
+        	<p class="State" style="font-size: 20px; font-weight: bold; color: red;">[거래중]</p>
+        	{% elif recommend.dealStatus == 0 %}
+        	<p class="State" style="font-size: 20px; font-weight: bold; color: green;">[거래가능]</p>
+        	{% else %}
+        	<p class="State" style="font-size: 20px; font-weight: bold; color: grey;">[거래완료]</p>
+        	{% endif %}
 			<h3>{{ recommend.title }}</h3>
 			<div style="overflow: hidden; width:150px; height:150px">
 				<img src="{{recommend.image.url}}" height="150px"></img>
@@ -29,6 +36,13 @@
 		{% for search in searchList %}
 		<hr  class="hidden" />
 		<div style=" cursor: pointer;" onclick="location.href='{% url 'post_detail' search.postPIN %}';">
+			{% if search.dealStatus == 1 %}
+        	<p class="State" style="font-size: 20px; font-weight: bold; color: red;">[거래중]</p>
+        	{% elif search.dealStatus == 0 %}
+        	<p class="State" style="font-size: 20px; font-weight: bold; color: green;">[거래가능]</p>
+        	{% else %}
+        	<p class="State" style="font-size: 20px; font-weight: bold; color: grey;">[거래완료]</p>
+        	{% endif %}
 			<h3>{{ search.title }}</h3>
 			<div style="overflow: hidden; width:150px; height:150px">
 				<img src="{{search.image.url}}" height="150px"></img>

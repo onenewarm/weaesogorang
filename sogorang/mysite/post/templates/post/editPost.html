@@ -52,7 +52,7 @@
 			<select name="productPIN" float="right">
 				<option name="none">---</option>
 				{% for post in post %}
-					<option name="name" value={{data.productPIN}}>{{post.name}}</option>
+					<option name="name" value={{post.productPIN}}>{{post.name}}</option>
 				{% endfor %}
 			</select>			
 
@@ -120,7 +120,7 @@
 				</div>
 			</div>
 		</form>
-        <form action="{% url 'post_delete' data.id %}", method="post">
+        <form action="{% url 'post_delete' data.postPIN %}", method="post">
             <input type="submit" value="삭제">
         </div>
 

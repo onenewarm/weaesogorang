@@ -28,9 +28,11 @@
     <hr>
     <li class="productName">
         {% if data.dealStatus == 1 %}
-        <p class="State">판매중</p>
+        <p class="State" style="font-weight: bold">거래중</p>
         {% elif data.dealStatus == 0 %}
-        <p class="State">거래가능</p>
+        <p class="State" style="color:green; font-weight: bold;">거래가능</p>
+        {% else %}
+        <p class="State" style="color:darkgrey; font-weight: bold;">판매완료</p>
         {% endif %}
         {{data.title}}</li> <!--상품이름-->
     <hr>
@@ -76,6 +78,7 @@
             <button class="chatingButton" onclick="window.open('{% url 'req_deal' data.postPIN %}')">거래 신청</button>
         </div>
 		{% endif %}
+
 	{% endif %}
 {% block script %}
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d366006e8ceeefed767191cac1e7f5a&libraries=services"></script>

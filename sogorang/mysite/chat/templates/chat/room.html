@@ -25,9 +25,9 @@
         <li><button class="chating5" id="chating5" onclick=on_chat5() value="곧 도착해요 잠시만 기다려주세요.">곧 도착해요 잠시만 기다려주세요.</button></li>
         <li><button class="chating6" id="chating6" onclick=on_chat6() value="어디세요?">어디세요?</button></li>
         <li><button class="chating7" id="chating7" onclick=on_chat7() value="도착했습니다.">도착했습니다.</button></li>
-        <li><button class="chating8" id="chating8" onclick=on_chat8() value="채팅8">채팅8</button></li>
-        <li><button class="chating9" id="chating9" onclick=on_chat9() value="채팅9">채팅9</button></li>
-        <li><button class="chating10" id="chating10" onclick=on_chat10() value="채팅10">채팅10</button></li>
+        <li><button class="chating8" id="chating8" onclick=on_chat8() value="채팅8" style="display: none;">채팅8</button></li>
+        <li><button class="chating9" id="chating9" onclick=on_chat9() value="채팅9" style="display: none;">채팅9</button></li>
+        <li><button class="chating10" id="chating10" onclick=on_chat10() value="채팅10" style="display: none;">채팅10</button></li>
         <br>
     </div>
 
@@ -133,7 +133,7 @@ const Chat = (function(){
    // init 함수 
    function init() {
         var chatSocket = new WebSocket(
-            'wss://' + '54.180.109.190:8001' +
+            'wss://' + '127.0.0.1:8001' +
             '/ws/chat/' + roomName + '/');
 
         chatSocket.onmessage = function(e) {  // 클라이언트들이 메시지를 받음.

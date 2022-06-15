@@ -28,6 +28,13 @@
 			{% for search in searchList %}
 			<hr  class="hidden" />
 			<a href= "{% url 'post_detail' search.postPIN %}">
+				{% if search.dealStatus == 1 %}
+				<p class="State" style="font-size: 20px; font-weight: bold; color: red;">[거래중]</p>
+				{% elif search.dealStatus == 0 %}
+				<p class="State" style="font-size: 20px; font-weight: bold; color: green;">[거래가능]</p>
+				{% else %}
+				<p class="State" style="font-size: 20px; font-weight: bold; color: grey;">[거래완료]</p>
+				{% endif %}
 				<h1>{{ search.title }}</h1>
 				<div style="overflow: hidden; width:150px; height:150px">
 					<img src="{{search.image.url}}" height="150px"></img>
