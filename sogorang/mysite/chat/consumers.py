@@ -35,11 +35,13 @@ class ChatConsumer(WebsocketConsumer):
 
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
+        status = text_data_json['status']
+        sender = text_data_json['sender']
 
         if 'action' in text_data_json and text_data_json['action'] == 'disconnect':
             message=""
             self.disconnect(0)
-        if 'status' in text_data_json and text_data_json['status'] == 'text':    
+        if status == 'text':    
              # Save message in DB
             sender = text_data_json['sender']
             ch=ChatChannel.objects.get(roomName=self.room_name)
@@ -48,11 +50,14 @@ class ChatConsumer(WebsocketConsumer):
                 self.room_group_name,
                     {
                             'type': 'chat_message',
+                            'status' : status,
                             'message': message,
+                            'sender' : sender,
+
                     }
             )
         
-        elif 'status' in text_data_json and text_data_json['status'] == 'img':
+        elif status == 'img':
              # Save message in DB
             k=ChatChannel.objects.filter(roomName=self.room_name).values('id')
             chatmessage = ChatMessage.objects.filter(channel__in=k).order_by('createTime').values('image')
@@ -60,7 +65,10 @@ class ChatConsumer(WebsocketConsumer):
                 self.room_group_name,
                     {
                             'type': 'chat_message',
+                            'status' : status,
                             'message': chatmessage[len(chatmessage)-1]['image'],
+                            'sender' : sender,
+
                     }
             )
     
@@ -74,7 +82,11 @@ class ChatConsumer(WebsocketConsumer):
     # Receive message from room group
     def chat_message(self, event):
         message = event['message']
+        status = event['status']
+        sender = event['sender']
         # Send message to WebSocket
         self.send(text_data=json.dumps({
+            'status' : status,
             'message': message,
+            'sender' : sender,
         }))

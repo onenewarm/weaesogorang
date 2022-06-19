@@ -139,15 +139,16 @@ const Chat = (function(){
         chatSocket.onmessage = function(e) {  // 클라이언트들이 메시지를 받음.
             var data = JSON.parse(e.data);
             var message = data['message'];
-            var id = data['id'];
+            var msg_sender = data['sender'];
+            status = data['status'];
             if(status == "text"){
-                sendMessage(message,myName);
+                sendMessage(message,msg_sender);
             }
             else if(status=="img"){
                 var idx=Math.random().toString(36);
                 var id = myName+idx;
                 var position = data['message'];
-                sendImg(id,"/media/"+message,myName);
+                sendImg(id,"/media/"+message,msg_sender);
             }
         
         };
@@ -188,6 +189,7 @@ const Chat = (function(){
         chatSocket.onopen = () => chatSocket.send(JSON.stringify({
                'status':status,
                'message': src[i],
+               'sender' : myName,
         }));
        }
        
